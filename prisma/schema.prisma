@@ -1,0 +1,121 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+enum Difficulty {
+  beginner
+  intermediate
+  advanced
+}
+
+enum WeightUnit {
+  kg
+  lbs
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  name        String
+  email       String    @unique
+  password    String
+   workouts   Workout[]
+}
+
+model Exercise {
+  id          Int      @id @default(autoincrement())
+  name        String
+  muscleGroup String   // chest, legs, back etc.
+  equipment   String   // dumbbell, barbell, bodyweight
+  difficulty  Difficulty   // beginner, intermediate
+  description String
+  videoUrl    String
+  imageUrl    String
+  
+  workoutEntries WorkoutExercise[]
+}
+
+model Workout {
+  id         Int               @id @default(autoincrement())
+  userId     Int
+  date       DateTime
+  duration   Int               // in seconds
+  exercises  WorkoutExercise[]
+
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+
+  user       User              @relation(fields: [userId], references: [id])
+}
+
+model WorkoutExercise {
+  id         Int         @id @default(autoincrement())
+  workoutId  Int
+  exerciseId Int
+  reps       Int
+  weight     Float
+  weightUnit WeightUnit
+
+  workout    Workout     @relation(fields: [workoutId], references: [id])
+  exercise   Exercise    @relation(fields: [exerciseId], references: [id])
+}
+// model WorkoutPlan {
+//   id        Int      @id @default(autoincrement())
+//   userId    Int
+//   name      String   // Push Pull Legs, HIIT, etc.
+//   goal      String   // Fat Loss, Muscle Gain, etc.
+  
+//   user      User     @relation(fields: [userId], references: [id])
+//   // days      PlanDay[]
+// }
+
+// model PlanDay {
+//   id            Int      @id @default(autoincrement())
+//   workoutPlanId Int
+//   day           String   // Monday, Tuesday etc.
+  
+//   workoutPlan   WorkoutPlan @relation(fields: [workoutPlanId], references: [id])
+//   exercises     WorkoutExercise[]
+// }
+
+// model WorkoutExercise {
+//   id          Int      @id @default(autoincrement())
+//   exerciseId  Int
+//   planDayId   Int
+  
+//   exercise    Exercise @relation(fields: [exerciseId], references: [id])
+//   planDay     PlanDay  @relation(fields: [planDayId], references: [id])
+// }
+
+// model WorkoutLog {
+//   id          Int      @id @default(autoincrement())
+//   userId      Int
+//   date        DateTime @default(now())
+//   notes       String?
+  
+//   user        User     @relation(fields: [userId], references: [id])
+//   logDetails  WorkoutLogDetail[]
+// }
+
+// model WorkoutLogDetail {
+//   id           Int      @id @default(autoincrement())
+//   workoutLogId Int
+//   exerciseId   Int
+//   sets         Int
+//   reps         Int
+//   weight       Float?
+  
+//   workoutLog   WorkoutLog @relation(fields: [workoutLogId], references: [id])
+//   exercise     Exercise   @relation(fields: [exerciseId], references: [id])
+// }
