@@ -42,5 +42,9 @@ app.use("/exercises", exerciseRoutes);
 const workoutRoutes = require("./routes/workoutRoutes");
 app.use("/workouts", workoutRoutes);
 
+//ai
+const aiRoutes = require('./routes/aiRoutes');
+app.use('/api/ai', aiRoutes);
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
