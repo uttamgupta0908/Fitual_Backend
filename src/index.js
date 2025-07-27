@@ -34,6 +34,8 @@ app.get("/profile", authMiddleware, async (req, res) => {
   }
 });
 
+
+
 //exercise routes
 const exerciseRoutes = require("./routes/exerciseRoutes");
 app.use("/exercises", exerciseRoutes);
