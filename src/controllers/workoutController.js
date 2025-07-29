@@ -62,8 +62,8 @@ const getWorkoutById = async (req, res) => {
 
 const getWorkoutsByUser = async (req, res) => {
   try {
-    const { userId } = req.params;
-
+    // const { userId } = req.params;
+    const userId = req.userId; // Use authenticated user's ID from middleware
     const workouts = await prisma.workout.findMany({
       where: { userId: parseInt(userId) },
       include: {
