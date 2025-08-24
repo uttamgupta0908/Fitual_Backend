@@ -8,7 +8,7 @@ A fitness tracking backend built with **Node.js**, **Express**, **Prisma**, and 
 
 - **Backend Framework**: Node.js, Express.js
 - **Database ORM**: Prisma
-- **Database**: MySQL Shifted PostgreSQL
+- **Database**: MySQL Shifted To PostgreSQL
 - **Authentication**: JWT
 - **Environment Management**: dotenv
 - **API Format**: REST
@@ -23,4 +23,5 @@ A fitness tracking backend built with **Node.js**, **Express**, **Prisma**, and 
 git clone https://github.com/your-username/Fitual_Backend.git
 cd Fitual_Backend
 ```
+
 
