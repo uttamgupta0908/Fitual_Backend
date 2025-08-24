@@ -36,7 +36,7 @@ app.get("/profile", authMiddleware, async (req, res) => {
 
 //exercise routes
 const exerciseRoutes = require("./routes/exerciseRoutes");
-app.use("/exercises", exerciseRoutes);
+app.use("/exercises", authMiddleware, exerciseRoutes);
 
 //workout routes
 const workoutRoutes = require("./routes/workoutRoutes");
@@ -44,7 +44,7 @@ app.use("/workouts", authMiddleware, workoutRoutes);
 
 //ai
 const aiRoutes = require("./routes/aiRoutes");
-app.use("/api/ai", aiRoutes);
+app.use("/gemini", aiRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

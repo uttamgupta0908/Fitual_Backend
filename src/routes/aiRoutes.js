@@ -10,6 +10,6 @@ const express = require("express");
 const router = express.Router();
 const { getGeminiAIResponse } = require("../controllers/aiController");
 
-router.post("/gemini", getGeminiAIResponse);
+router.post("/", getGeminiAIResponse);
 
 module.exports = router;

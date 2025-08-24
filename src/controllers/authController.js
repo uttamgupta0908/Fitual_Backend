@@ -29,7 +29,12 @@ exports.signup = async (req, res) => {
     });
 
     res.json({
-      user: { id: user.id, name: user.name, email: user.email },
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        createdAt: user.createdAt,
+      },
       token,
     });
   } catch (err) {
@@ -43,7 +48,6 @@ exports.signin = async (req, res) => {
 
   try {
     const user = await prisma.user.findUnique({ where: { email } });
-
     if (!user) {
       return res.status(400).json({ error: "Invalid credentials" });
     }
@@ -59,7 +63,12 @@ exports.signin = async (req, res) => {
     });
 
     res.json({
-      user: { id: user.id, name: user.name, email: user.email },
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        createdAt: user.createdAt,
+      },
       token,
     });
   } catch (err) {
